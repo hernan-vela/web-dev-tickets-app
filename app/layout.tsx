@@ -19,11 +19,9 @@ export default function RootLayout({
       <body>
         <Theme>
           <NavBar />
-          <main>{children}</main>
+          <main className="p-5">{children}</main>
         </Theme>
       </body>
     </html>
   );
 }
-
-//"@radix-ui/themes/styles.css";
