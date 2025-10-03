@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '@/lib/validationSchemas';
 import { z } from 'zod';
 import ErrorMessage from '@/app/components/ErrorMessage';
+import Spinner from '@/app/components/Spinner';
 
 /**  
  * This calls the validation schema without having
@@ -23,6 +24,7 @@ const NewIssuePage = () => {
   const router = useRouter();
   const { register, control, handleSubmit, formState: { errors } } = useForm<IssueForm>({resolver: zodResolver(createIssueSchema)});
   const [ error, setError ] = useState('');
+  const [ isSubmitting, setSubmitting ] = useState(false);
 
   return(
     <div className='max-w-xl'>
@@ -37,9 +39,11 @@ const NewIssuePage = () => {
     className='space-y-5' 
     onSubmit={handleSubmit(async (data) => {
       try {
+        setSubmitting(true);
         await axios.post('/api/issues', data);
         router.push('/issues'); 
       } catch (error) {
+        setSubmitting(false);  
         setError('An unexpected error occurred.')
       }
     })}>
@@ -54,7 +58,12 @@ const NewIssuePage = () => {
       render={({ field }) => <SimpleMdeReact placeholder='Description' {...field} />}
       />
       {errors.description && <Text color='red' as='p' className='pb-'>{errors.description.message}</Text> }
-      <Button>Submit New Issue</Button>
+      {/* 'disable' the button avoids the user the submit 
+      the same info twice. Specially helpful when 
+      dealing with money */}
+      <Button disabled={isSubmitting}>
+        Submit New Issue{isSubmitting && <Spinner />}
+      </Button>
     </form>
     </div>
   );
