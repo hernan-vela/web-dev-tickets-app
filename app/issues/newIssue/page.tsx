@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Callout, TextField } from '@radix-ui/themes';
+import { Button, Callout, Text, TextField } from '@radix-ui/themes';
 import SimpleMdeReact from 'react-simplemde-editor';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
@@ -8,15 +8,19 @@ import "easymde/dist/easymde.min.css";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RiAlarmWarningLine } from 'react-icons/ri';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createIssueSchema } from '@/lib/validationSchemas';
+import { z } from 'zod';
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+/**  
+ * This calls the validation schema without having
+ * the interface in this file
+*/
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<IssueForm>();
+  const { register, control, handleSubmit, formState: { errors } } = useForm<IssueForm>({resolver: zodResolver(createIssueSchema)});
   const [ error, setError ] = useState('');
 
   return(
@@ -39,11 +43,13 @@ const NewIssuePage = () => {
       }
     })}>
       <TextField.Root placeholder='Title' {...register('title')}/>
+      {errors.title && <Text color='red' as='p' className='pb-3'>{errors.title.message}</Text> }
       <Controller 
       name="description"
       control={control}
       render={({ field }) => <SimpleMdeReact placeholder='Description' {...field} />}
       />
+      {errors.description && <Text color='red' as='p' className='pb-3'>{errors.description.message}</Text> }
       <Button>Submit New Issue</Button>
     </form>
     </div>
