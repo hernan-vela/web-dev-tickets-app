@@ -11,6 +11,7 @@ import { RiAlarmWarningLine } from 'react-icons/ri';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '@/lib/validationSchemas';
 import { z } from 'zod';
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 /**  
  * This calls the validation schema without having
@@ -43,13 +44,16 @@ const NewIssuePage = () => {
       }
     })}>
       <TextField.Root placeholder='Title' {...register('title')}/>
-      {errors.title && <Text color='red' as='p' className='pb-3'>{errors.title.message}</Text> }
+      <ErrorMessage>
+      {errors.title?.message}
+      </ErrorMessage>
+      
       <Controller 
       name="description"
       control={control}
       render={({ field }) => <SimpleMdeReact placeholder='Description' {...field} />}
       />
-      {errors.description && <Text color='red' as='p' className='pb-3'>{errors.description.message}</Text> }
+      {errors.description && <Text color='red' as='p' className='pb-'>{errors.description.message}</Text> }
       <Button>Submit New Issue</Button>
     </form>
     </div>
