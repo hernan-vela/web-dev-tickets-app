@@ -1,4 +1,3 @@
-
 import { Status } from '@/generated/prisma/enums';
 import { Badge } from '@radix-ui/themes';
 import React from 'react';
@@ -11,7 +10,8 @@ import React from 'react';
 //   status: Status
 // }
 
-const statusMap: Record<
+
+  const statusMap: Record<
   Status, 
   { label: string, color: 'red' | 'violet' | 'green'}
 > = {
