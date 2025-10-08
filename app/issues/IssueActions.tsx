@@ -6,7 +6,7 @@ const IssueActions = () => {
   return (
     <div className='mb-5'>
       <Button>
-        <Link href='/newIssue'>
+        <Link href='issues/newIssue'>
         New Issue
         </Link>
       </Button>
@@ -15,3 +15,4 @@ const IssueActions = () => {
 }
 
 export default IssueActions;
+

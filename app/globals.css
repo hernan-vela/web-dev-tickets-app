@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* As 2025, this plugin overrides all the CSS rules,
+if installed globally. Solution: run this plugin 
+locally and extend its use only where it is needed */
+
+/* @plugin "tailwindcss/typography";  */
 
 :root {
   --foreground: #171717;
