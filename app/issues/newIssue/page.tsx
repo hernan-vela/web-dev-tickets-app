@@ -1,18 +1,18 @@
 'use client';
 
+import ErrorMessage from '@/app/components/ErrorMessage';
+import Spinner from '@/app/components/Spinner';
+import { createIssueSchema } from '@/lib/validationSchemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Callout, Text, TextField } from '@radix-ui/themes';
-import SimpleMdeReact from 'react-simplemde-editor';
-import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import "easymde/dist/easymde.min.css";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { RiAlarmWarningLine } from 'react-icons/ri';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createIssueSchema } from '@/lib/validationSchemas';
+import SimpleMdeReact from 'react-simplemde-editor';
 import { z } from 'zod';
-import ErrorMessage from '@/app/components/ErrorMessage';
-import Spinner from '@/app/components/Spinner';
 
 /**  
  * This calls the validation schema without having
