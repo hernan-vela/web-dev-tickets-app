@@ -12,8 +12,13 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { RiAlarmWarningLine } from 'react-icons/ri';
-import SimpleMdeReact from 'react-simplemde-editor';
+import dynamic from 'next/dynamic';
 import { z } from 'zod';
+
+const SimpleMdeReact = dynamic(
+  () => import('react-simplemde-editor'),
+  { ssr: false }
+);
 
 /**  
  * This calls the validation schema without having
@@ -40,7 +45,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       else
         await axios.post('/api/issues', data);
       router.push('/issues'); 
-    } catch (error) {
+      // here between it was: } catch (error) {
+    } catch {
       setSubmitting(false);  
       setError('An unexpected error occurred.')
       }
