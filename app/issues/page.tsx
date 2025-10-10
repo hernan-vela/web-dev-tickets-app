@@ -43,6 +43,11 @@ const IssuesPage = async () => {
   );
 }
 
+export const dynamic = 'force-dynamic';
+
+// This revalidate the page every 60 s. Time determined by developer
+// export const revalidate = 60;
+
 export default IssuesPage;
 
 
