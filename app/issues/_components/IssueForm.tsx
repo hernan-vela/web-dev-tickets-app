@@ -12,13 +12,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { RiAlarmWarningLine } from 'react-icons/ri';
-import dynamic from 'next/dynamic';
+import SimpleMdeReact from 'react-simplemde-editor';
 import { z } from 'zod';
-
-const SimpleMdeReact = dynamic(
-  () => import('react-simplemde-editor'),
-  { ssr: false }
-);
 
 /**  
  * This calls the validation schema without having
