@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div>Web Dev Tickets App</div>
+    <h1>Web Dev Tickets App</h1>
   );
 }
